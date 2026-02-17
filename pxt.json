@@ -46,8 +46,8 @@
         }
     },
     "extension": {
-        "namespace": "audio",
-        "label": "tannoy-selector",
+        "namespace": "Tannoy",
+        "label": "Initialise",
         "url": "http://localhost:3000",
         "localUrl": "http://localhost:3000"
     }
