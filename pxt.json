@@ -48,6 +48,6 @@
     "extension": {
         "namespace": "audio",
         "label": "tannoy-selector",
-        "localUrl": "http://127.0.0.1/5137"
+        "localUrl": "http://127.0.0.1/3000"
     }
 }
