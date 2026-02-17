@@ -16,10 +16,30 @@
         "source/audio/numbers_minimum.h",
         "source/audio/stations_minimum.h",
         "source/utils/decompressor.h",
-        "source/utils/decompressor.cpp"
+        "source/utils/decompressor.cpp",
+        "source/tannoy.cpp"
     ],
+    "cppDependencies":{
+        "source/audio/numbers_extreme.h":"!numbers_minimum.h",
+        "source/audio/numbers_high.h":"!numbers_minimum.h",
+        "source/audio/numbers_medium.h":"!numbers_minimum.h",
+        "source/audio/numbers_low.h":"!numbers_minimum.h",
+        "source/audio/stations_extreme.h":"!stations_minimum.h",
+        "source/audio/stations_high.h":"!stations_minimum.h",
+        "source/audio/stations_medium.h":"!stations_minimum.h",
+        "source/audio/stations_low.h":"!stations_minimum.h"
+    },
+    "yotta": {
+        "config": {
+            "AUDIO_QUALITY": 1
+        }
+    },
     "testFiles": ["main.blocks", "main.ts"],
     "public": true,
     "supportedTargets": ["microbit"],
     "preferredEditor": "tsprj"
+    },
+    "extension":{
+        "url":"http://localhost:5173/"
     }
+}
