@@ -35,5 +35,10 @@
     "testFiles": ["main.blocks", "main.ts"],
     "public": true,
     "supportedTargets": ["microbit"],
-    "preferredEditor": "tsprj"
+    "preferredEditor": "tsprj",
+    "extension":{
+        "namespace":"audio",
+        "label":"tannoy-selector",
+        "localUrl":"http://127.0.0.1/5137"
+    }
 }
