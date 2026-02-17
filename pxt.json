@@ -46,7 +46,7 @@
         }
     },
     "extension": {
-        "namespace": "tannoy",
+        "namespace": "Tannoy",
         "label": "Initialise",
         "url": "http://localhost:5173",
         "localUrl": "http://localhost:5173"
