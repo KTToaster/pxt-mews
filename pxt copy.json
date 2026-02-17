@@ -1,0 +1,41 @@
+{
+    "name": "mews",
+    "version": "0.0.1",
+    "description": "A PXT Extension to allow for Text to speech on the microbit - using word-stringing",
+    "dependencies": {
+        "core": "*"
+    },
+    "files": [
+        "README.md",
+        "source/main.blocks",
+        "source/tannoy.ts",
+        "source/mappings.ts",
+        "source/mappings.h",
+        "source/audio/audio.h",
+        "source/audio/numbers_extreme.h",
+        "source/audio/numbers_high.h",
+        "source/audio/numbers_medium.h",
+        "source/audio/numbers_low.h",
+        "source/audio/numbers_minimum.h",
+        "source/audio/stations_extreme.h",
+        "source/audio/stations_high.h",
+        "source/audio/stations_medium.h",
+        "source/audio/stations_low.h",
+        "source/audio/stations_minimum.h",
+        "source/utils/decompressor.h",
+        "source/utils/decompressor.cpp",
+        "source/tannoy.cpp"
+    ],
+    "testFiles": [
+        "source/test.ts"
+    ],
+    "public": true,
+    "supportedTargets": [
+        "microbit"
+    ],
+    "preferredEditor": "blocksprj",
+    "weight": 10,
+    "extension":{
+        "url":"http://localhost:5173/"
+    }
+}
