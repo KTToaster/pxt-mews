@@ -39,7 +39,7 @@
     "supportedTargets": [
         "microbit"
     ],
-    "preferredEditor": "tsprj",
+    "preferredEditor": "blocksprj",
     "yotta": {
         "config": {
             "AUDIO_QUALITY": 1
