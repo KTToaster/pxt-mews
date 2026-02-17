@@ -1,4 +1,4 @@
-    {
+{
     "name": "mews",
     "version": "0.0.1",
     "description": "A PXT Extension to allow for Text to speech on the microbit - using word-stringing",
@@ -27,13 +27,22 @@
         "source/utils/decompressor.cpp",
         "source/tannoy.cpp"
     ],
+    "testFiles": [
+        "main.blocks",
+        "main.ts"
+    ],
+    "public": true,
+    "targetVersions": {
+        "target": "8.1.6",
+        "targetId": "microbit"
+    },
+    "supportedTargets": [
+        "microbit"
+    ],
+    "preferredEditor": "tsprj",
     "yotta": {
         "config": {
             "AUDIO_QUALITY": 1
         }
-    },
-    "testFiles": ["main.blocks", "main.ts"],
-    "public": true,
-    "supportedTargets": ["microbit"],
-    "preferredEditor": "tsprj"
+    }
 }
