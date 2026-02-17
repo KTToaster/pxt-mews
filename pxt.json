@@ -38,8 +38,4 @@
     "public": true,
     "supportedTargets": ["microbit"],
     "preferredEditor": "tsprj"
-    },
-    "extension":{
-        "url":"http://localhost:5173/"
-    }
 }
