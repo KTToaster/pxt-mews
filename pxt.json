@@ -37,8 +37,7 @@
     "testFiles": ["main.blocks", "main.ts"],
     "public": true,
     "supportedTargets": ["microbit"],
-    "preferredEditor": "tsprj"
-    },
+    "preferredEditor": "tsprj",
     "extension":{
         "url":"http://localhost:5173/"
     }
