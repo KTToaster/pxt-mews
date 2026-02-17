@@ -1,0 +1,33 @@
+:root{
+  --pxt-header-background:#3454D1;
+  --pxt-neutral-alpha10:rgba(0,0,0,0.1);
+  --pxt-neutral-alpha20:rgba(0,0,0,0.2);
+}
+
+#navbar{
+  background-color: var(--pxt-header-background);
+  color: #fff;
+  min-height: 3.5rem !important;
+}
+.nav-pills{
+  background-color: var(--pxt-neutral-alpha20);
+  border: 3px solid var(--pxt-neutral-alpha10);
+  border-radius: 2.5rem !important; 
+}
+.nav-link{
+  border-radius: 2.5rem !important; 
+  color: #fff;
+}
+
+.nav-link.active{
+  color: var(--pxt-header-background) !important;
+  background-color: #fff !important;
+}
+
+.nav-logo{
+  padding-left: 1vw;
+  padding-bottom: 0px;
+  padding-right: 0px;
+  margin-top: 0.5vh;
+  height: 100% !important;
+}

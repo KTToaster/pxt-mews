@@ -44,5 +44,10 @@
         "config": {
             "AUDIO_QUALITY": 1
         }
+    },
+    "extension":{
+        "namespace":"audio",
+        "label":"tannoy-selector",
+        "localUrl":"http://127.0.0.1/5137"
     }
 }
