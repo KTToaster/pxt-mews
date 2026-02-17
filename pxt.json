@@ -15,20 +15,18 @@
         "source/audio/audio.h",
         "source/audio/numbers_minimum.h",
         "source/audio/stations_minimum.h",
+        "source/audio/numbers_extreme.h",
+        "source/audio/numbers_high.h",
+        "source/audio/numbers_medium.h",
+        "source/audio/numbers_low.h",
+        "source/audio/stations_extreme.h",
+        "source/audio/stations_high.h",
+        "source/audio/stations_medium.h",
+        "source/audio/stations_low.h",
         "source/utils/decompressor.h",
         "source/utils/decompressor.cpp",
         "source/tannoy.cpp"
     ],
-    "cppDependencies":{
-        "source/audio/numbers_extreme.h":"!numbers_minimum.h",
-        "source/audio/numbers_high.h":"!numbers_minimum.h",
-        "source/audio/numbers_medium.h":"!numbers_minimum.h",
-        "source/audio/numbers_low.h":"!numbers_minimum.h",
-        "source/audio/stations_extreme.h":"!stations_minimum.h",
-        "source/audio/stations_high.h":"!stations_minimum.h",
-        "source/audio/stations_medium.h":"!stations_minimum.h",
-        "source/audio/stations_low.h":"!stations_minimum.h"
-    },
     "yotta": {
         "config": {
             "AUDIO_QUALITY": 1
