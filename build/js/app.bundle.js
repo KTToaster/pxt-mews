@@ -64,7 +64,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "06d4000805ca31e38599";
+/******/ 	var hotCurrentHash = "509b4fb4baca632712e9";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -816,27 +816,11 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(/*! react */ "react");
 var semantic_ui_react_1 = __webpack_require__(/*! semantic-ui-react */ "./node_modules/semantic-ui-react/dist/es/index.js");
 var pxtextensions_1 = __webpack_require__(/*! ../lib/pxtextensions */ "./lib/pxtextensions.ts");
-var footer_1 = __webpack_require__(/*! ./components/footer */ "./editor-extension/components/footer.tsx");
-var body_1 = __webpack_require__(/*! ./components/body */ "./editor-extension/components/body.tsx");
-var header_1 = __webpack_require__(/*! ./components/header */ "./editor-extension/components/header.tsx");
 var util = __webpack_require__(/*! ./lib/util */ "./editor-extension/lib/util.ts");
-var datastream_1 = __webpack_require__(/*! ./components/datastream */ "./editor-extension/components/datastream.tsx");
-var snippet_1 = __webpack_require__(/*! ./components/snippet */ "./editor-extension/components/snippet.tsx");
 var App = (function (_super) {
     __extends(App, _super);
     function App(props) {
@@ -892,19 +876,22 @@ var App = (function (_super) {
         }
     };
     App.prototype.render = function () {
-        var hosted = this.props.hosted;
+        var _a = this.state, code = _a.code, json = _a.json, jres = _a.jres, asm = _a.asm;
+        console.log("State:", this.state);
         return (React.createElement("div", { className: "App" },
-            React.createElement(semantic_ui_react_1.Container, null,
-                React.createElement(header_1.Header, __assign({}, this.state)),
-                React.createElement(semantic_ui_react_1.Segment, { basic: true },
-                    React.createElement(body_1.Body, __assign({ parent: this }, this.state))),
-                React.createElement(semantic_ui_react_1.Segment, { basic: true },
-                    React.createElement(datastream_1.DataStream, __assign({}, this.props))),
-                React.createElement(semantic_ui_react_1.Segment, { basic: true },
-                    React.createElement(snippet_1.Snippet, __assign({}, this.state))),
-                !hosted ? React.createElement(semantic_ui_react_1.Segment, { basic: true },
-                    React.createElement(semantic_ui_react_1.Button, { onClick: this.handleExport }, "Export")) : undefined,
-                React.createElement(footer_1.Footer, __assign({}, this.state)))));
+            React.createElement(semantic_ui_react_1.Header, { as: "h5", className: "center aligned" }, "\u00A0"),
+            React.createElement(semantic_ui_react_1.Header, { as: "h1", className: "center aligned" }, "Audio precompiled. Return to MakeCode and download hex."),
+            React.createElement(semantic_ui_react_1.Header, { as: "h3", className: "center aligned" }, "Ensure you re-precompile after making any changes."),
+            React.createElement(semantic_ui_react_1.Header, { as: "h5", className: "center aligned" }, "\u00A0"),
+            React.createElement(semantic_ui_react_1.Segment, null,
+                React.createElement(semantic_ui_react_1.Header, { as: "h4" }, "Code:"),
+                React.createElement("pre", null, code),
+                React.createElement(semantic_ui_react_1.Header, { as: "h4" }, "JSON:"),
+                React.createElement("pre", null, JSON.stringify(json, null, 2)),
+                React.createElement(semantic_ui_react_1.Header, { as: "h4" }, "JRES:"),
+                React.createElement("pre", null, JSON.stringify(jres, null, 2)),
+                React.createElement(semantic_ui_react_1.Header, { as: "h4" }, "ASM:"),
+                React.createElement("pre", null, asm))));
     };
     return App;
 }(React.Component));
@@ -948,9 +935,12 @@ var PXTExtension = (function (_super) {
             isSupported: _this.isSupported(),
         };
         _this.client = new pxtextensions_1.PXTClient();
-        _this.client.on('init', function (target) { return _this.setState({ target: target, hosted: true }); });
+        _this.client.on('init', function (target) {
+            _this.setState({ target: target, hosted: true });
+        });
         pxtextensions_1.pxt.extensions.setup(_this.client);
         pxtextensions_1.pxt.extensions.init();
+        pxtextensions_1.pxt.extensions.read();
         return _this;
     }
     PXTExtension.prototype.isSupported = function () {
@@ -988,371 +978,6 @@ var PXTExtension = (function (_super) {
     return PXTExtension;
 }(React.Component));
 exports.PXTExtension = PXTExtension;
-
-
-/***/ }),
-
-/***/ "./editor-extension/components/body.tsx":
-/*!**********************************************!*\
-  !*** ./editor-extension/components/body.tsx ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var React = __webpack_require__(/*! react */ "react");
-var semantic_ui_react_1 = __webpack_require__(/*! semantic-ui-react */ "./node_modules/semantic-ui-react/dist/es/index.js");
-var Body = (function (_super) {
-    __extends(Body, _super);
-    function Body(props) {
-        var _this = _super.call(this, props) || this;
-        _this.handleCodeChange = _this.handleCodeChange.bind(_this);
-        return _this;
-    }
-    Body.prototype.handleCodeChange = function (e, data) {
-        var value = data.value.toString();
-        this.props.parent.setUserFiles({ code: value });
-    };
-    Body.prototype.render = function () {
-        var _a = this.props, code = _a.code, json = _a.json, jres = _a.jres, asm = _a.asm;
-        return React.createElement(semantic_ui_react_1.Form, null,
-            React.createElement(semantic_ui_react_1.FormField, null,
-                React.createElement(semantic_ui_react_1.Label, null, "code"),
-                React.createElement(semantic_ui_react_1.TextArea, { value: code, onChange: this.handleCodeChange })));
-    };
-    return Body;
-}(React.Component));
-exports.Body = Body;
-
-
-/***/ }),
-
-/***/ "./editor-extension/components/datastream.tsx":
-/*!****************************************************!*\
-  !*** ./editor-extension/components/datastream.tsx ***!
-  \****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var React = __webpack_require__(/*! react */ "react");
-var semantic_ui_react_1 = __webpack_require__(/*! semantic-ui-react */ "./node_modules/semantic-ui-react/dist/es/index.js");
-var pxtextensions_1 = __webpack_require__(/*! ../../lib/pxtextensions */ "./lib/pxtextensions.ts");
-var DataStream = (function (_super) {
-    __extends(DataStream, _super);
-    function DataStream(props) {
-        var _this = _super.call(this, props) || this;
-        _this.state = {};
-        _this.handleStart = _this.handleStart.bind(_this);
-        _this.props.client.on("datastream", function (streaming) { return _this.setState({ streaming: streaming }); });
-        return _this;
-    }
-    DataStream.prototype.handleStart = function () {
-        pxtextensions_1.pxt.extensions.dataStream(true);
-    };
-    DataStream.prototype.render = function () {
-        var hosted = this.props.hosted;
-        var streaming = this.state.streaming;
-        return React.createElement(semantic_ui_react_1.Form, null,
-            React.createElement(semantic_ui_react_1.FormField, null,
-                React.createElement(semantic_ui_react_1.Label, null, "Console data"),
-                React.createElement("pre", { className: "ui tiny" }, "waiting for data")),
-            React.createElement(semantic_ui_react_1.FormField, null,
-                React.createElement(semantic_ui_react_1.Button, { disabled: !hosted, onClick: this.handleStart }, streaming ? "Stop streaming" : "Start streaming"),
-                !hosted ? React.createElement(semantic_ui_react_1.Message, { info: true },
-                    React.createElement(semantic_ui_react_1.Message.Header, null, "Data streaming not available."),
-                    "This page needs to be opened from the MakeCode editor in order to get data streaming.") : undefined));
-    };
-    return DataStream;
-}(React.Component));
-exports.DataStream = DataStream;
-
-
-/***/ }),
-
-/***/ "./editor-extension/components/footer.tsx":
-/*!************************************************!*\
-  !*** ./editor-extension/components/footer.tsx ***!
-  \************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var React = __webpack_require__(/*! react */ "react");
-var Footer = (function (_super) {
-    __extends(Footer, _super);
-    function Footer() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    Footer.prototype.render = function () {
-        return React.createElement("div", { className: "ui center basic segment footer" },
-            React.createElement("hr", null),
-            "TODO: Update copyright / privacy notice.");
-    };
-    return Footer;
-}(React.Component));
-exports.Footer = Footer;
-
-
-/***/ }),
-
-/***/ "./editor-extension/components/header.tsx":
-/*!************************************************!*\
-  !*** ./editor-extension/components/header.tsx ***!
-  \************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var React = __webpack_require__(/*! react */ "react");
-var semantic_ui_react_1 = __webpack_require__(/*! semantic-ui-react */ "./node_modules/semantic-ui-react/dist/es/index.js");
-var Header = (function (_super) {
-    __extends(Header, _super);
-    function Header() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    Header.prototype.render = function () {
-        var dirty = this.props.dirty;
-        return React.createElement(semantic_ui_react_1.Message, null,
-            React.createElement(semantic_ui_react_1.Message.Header, null,
-                "PXT-Mews",
-                dirty ? React.createElement("span", null, "*") : undefined),
-            React.createElement("p", null, "TODO: Explain what needs to happen"));
-    };
-    return Header;
-}(React.Component));
-exports.Header = Header;
-
-
-/***/ }),
-
-/***/ "./editor-extension/components/snippet.tsx":
-/*!*************************************************!*\
-  !*** ./editor-extension/components/snippet.tsx ***!
-  \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var React = __webpack_require__(/*! react */ "react");
-exports.makecodeUrl = "https://makecode.microbit.org/";
-exports.lang = undefined;
-var RENDER_DEBOUNCE_TIMEOUT = 1000;
-var rendererReady = false;
-var rendererError = "";
-var nextRequest = 0;
-var pendingRequests = {};
-function renderBlocks(req, cb) {
-    req.id = (nextRequest++) + "";
-    pendingRequests[req.id] = { req: req, cb: cb };
-    if (rendererReady)
-        sendRequest(req);
-}
-function sendRequest(req) {
-    var f = startRenderer();
-    if (f)
-        f.contentWindow.postMessage(req, exports.makecodeUrl);
-}
-function handleMessage(ev) {
-    var msg = ev.data;
-    if (msg.source != "makecode")
-        return;
-    switch (msg.type) {
-        case "renderready":
-            rendererReady = true;
-            rendererError = undefined;
-            Object.keys(pendingRequests).forEach(function (k) { return sendRequest(pendingRequests[k].req); });
-            break;
-        case "renderblocks":
-            var id = msg.id;
-            var r = pendingRequests[id];
-            if (!r)
-                return;
-            delete pendingRequests[id];
-            r.cb(msg);
-            break;
-    }
-}
-function startRenderer() {
-    if (!exports.makecodeUrl)
-        return undefined;
-    var f = document.getElementById("makecoderenderer");
-    if (f)
-        return f;
-    window.addEventListener("message", handleMessage, false);
-    f = document.createElement("iframe");
-    f.id = "makecoderenderer";
-    f.style.position = "absolute";
-    f.style.left = "0";
-    f.style.bottom = "0";
-    f.style.width = "1px";
-    f.style.height = "1px";
-    f.src = exports.makecodeUrl + "--docs?render=1" + (exports.lang ? "&lang=" + exports.lang : '');
-    document.body.appendChild(f);
-    setTimeout(function () {
-        if (!rendererReady)
-            rendererError = "Oops, can't connect to MakeCode. Please check your internet connection.";
-    }, 30000);
-    return f;
-}
-var Snippet = (function (_super) {
-    __extends(Snippet, _super);
-    function Snippet(props) {
-        var _this = _super.call(this, props) || this;
-        _this.state = {};
-        _this.renderProps = _this.renderProps.bind(_this);
-        _this.debouncedRenderProps = Snippet.debounce(_this.renderProps, RENDER_DEBOUNCE_TIMEOUT);
-        return _this;
-    }
-    Snippet.debounce = function (func, wait) {
-        var timeout;
-        return function () {
-            var context = this;
-            var args = arguments;
-            var later = function () {
-                timeout = null;
-                func.apply(context, args);
-            };
-            var callNow = !timeout;
-            clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
-            if (callNow)
-                func.apply(context, args);
-        };
-    };
-    Snippet.prototype.componentDidMount = function () {
-        startRenderer();
-        this.debouncedRenderProps();
-    };
-    Snippet.prototype.componentWillReceiveProps = function (nextProps) {
-        if (this.props.code != nextProps.code ||
-            this.props.packageId != nextProps.packageId ||
-            this.props.package != nextProps.package ||
-            this.props.snippetMode != nextProps.snippetMode) {
-            this.debouncedRenderProps();
-        }
-    };
-    Snippet.prototype.renderProps = function () {
-        var _this = this;
-        var _a = this.props, code = _a.code, packageId = _a.packageId, _package = _a.package, snippetMode = _a.snippetMode;
-        this.setState({ uri: undefined, width: undefined, height: undefined, error: undefined, rendering: false });
-        if (code) {
-            this.setState({ rendering: true });
-            renderBlocks({
-                type: "renderblocks",
-                id: "",
-                code: code,
-                options: {
-                    packageId: packageId,
-                    package: _package,
-                    snippetMode: snippetMode
-                }
-            }, function (resp) {
-                _this.setState({
-                    uri: resp.uri,
-                    width: resp.width,
-                    height: resp.height,
-                    error: resp.error,
-                    rendering: false
-                });
-            });
-        }
-    };
-    Snippet.prototype.render = function () {
-        var code = this.props.code;
-        var _a = this.state, uri = _a.uri, width = _a.width, height = _a.height, rendering = _a.rendering, error = _a.error;
-        var loading = !rendererReady;
-        var err = error || rendererError;
-        var precode = loading
-            || !rendererReady
-            || err
-            || !uri ? code : undefined;
-        return React.createElement("div", null,
-            loading || rendering ? React.createElement("div", { className: "ui active inverted dimmer" },
-                React.createElement("div", { className: "ui loader" })) : undefined,
-            precode ? React.createElement("pre", null,
-                React.createElement("code", null, precode)) : undefined,
-            err ? React.createElement("div", { className: "ui message info" }, err) : undefined,
-            uri ? React.createElement("img", { className: "ui image", alt: code, src: uri, width: width, height: height }) : undefined);
-    };
-    return Snippet;
-}(React.Component));
-exports.Snippet = Snippet;
 
 
 /***/ }),
