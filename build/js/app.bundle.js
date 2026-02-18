@@ -64,7 +64,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "9a8008cc824c35a30741";
+/******/ 	var hotCurrentHash = "23ab160ce8a5303de652";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -831,13 +831,13 @@ var App = (function (_super) {
         _this.debounceSerialized = util.debounce(_this.serialize, 500);
         _this.handleExport = _this.handleExport.bind(_this);
         _this.props.client.on('read', _this.deserialize);
+        _this.props.client.on('readuser', _this.deserialize);
         _this.props.client.on('hidden', function () {
             _this.serialize();
             _this.setState({ shown: false });
         });
         _this.props.client.on('shown', function () { return _this.setState({ shown: true }); });
         _this.props.client.on('written', function () { return _this.setState({ dirty: false }); });
-        _this.props.client.on('init', function () { return pxtextensions_1.pxt.extensions.read(); });
         return _this;
     }
     App.prototype.deserialize = function (resp) {
@@ -847,7 +847,7 @@ var App = (function (_super) {
         var json = resp.json !== undefined && util.JSONtryParse(resp.json);
         var jres = resp.jres !== undefined && util.JSONtryParse(resp.jres);
         var asm = resp.asm;
-        console.debug('reading ', code, json, jres, asm);
+        console.debug('reading ', resp);
         this.setState({ code: code, json: json, jres: jres, asm: asm, dirty: false });
     };
     App.prototype.serialize = function () {
@@ -877,7 +877,6 @@ var App = (function (_super) {
         }
     };
     App.prototype.render = function () {
-        console.log("State:", this.state);
         var _a = this.state, code = _a.code, json = _a.json, jres = _a.jres, asm = _a.asm;
         return (React.createElement("div", { className: "App" },
             React.createElement(semantic_ui_react_1.Header, { as: "h5", className: "center aligned" }, "\u00A0"),
@@ -961,10 +960,12 @@ var PXTExtension = (function (_super) {
         this.client.on('loaded', function (target) {
             _this.setState({ target: target });
             pxtextensions_1.pxt.extensions.read(_this.client);
+            pxtextensions_1.pxt.extensions.readUser();
         });
         this.client.on('shown', function (target) {
             _this.setState({ target: target });
             pxtextensions_1.pxt.extensions.read(_this.client);
+            pxtextensions_1.pxt.extensions.readUser();
         });
         if (!pxtextensions_1.pxt.extensions.inIframe()) {
             this.client.emit('loaded', this.getDefaultTarget());

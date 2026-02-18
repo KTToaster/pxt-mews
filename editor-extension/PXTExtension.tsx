@@ -58,11 +58,13 @@ export class PXTExtension extends React.Component<{}, AppState> {
         this.client.on('loaded', (target: string) => {
             this.setState({ target });
             pxt.extensions.read(this.client);
+            pxt.extensions.readUser();
         })
 
         this.client.on('shown', (target: string) => {
             this.setState({ target });
             pxt.extensions.read(this.client);
+            pxt.extensions.readUser();
         })
 
         if (!pxt.extensions.inIframe()) {

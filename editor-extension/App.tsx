@@ -3,7 +3,6 @@ import * as React from 'react';
 import { Container, Segment, Button, Header } from "semantic-ui-react";
 import { pxt, PXTClient } from '../lib/pxtextensions';
 import * as util from "./lib/util";
-import * as images from "./lib/images";
 import { PXTComponentProps } from './PXTExtension';
 
 export interface IApp {
@@ -24,6 +23,8 @@ export interface AppState {
     json?: string;
     jres?: string;
     asm?: string;
+
+    userCode?:string;
 }
 
 export class App extends React.Component<AppProps, AppState> implements IApp {
@@ -41,23 +42,22 @@ export class App extends React.Component<AppProps, AppState> implements IApp {
         this.handleExport = this.handleExport.bind(this);
 
         this.props.client.on('read', this.deserialize);
+        this.props.client.on('readuser', this.deserialize);
         this.props.client.on('hidden', () => {
             this.serialize();
             this.setState({ shown: false });
         });
         this.props.client.on('shown', () => this.setState({ shown: true }));
         this.props.client.on('written', () => this.setState({ dirty: false }));
-
-        this.props.client.on('init', () => pxt.extensions.read());
     }
 
     private deserialize(resp: pxt.extensions.ReadResponse) {
         if (!resp) return;
-        const code = resp.code || " ";
+        const code = resp.code;
         const json = resp.json !== undefined && util.JSONtryParse(resp.json);
         const jres = resp.jres !== undefined && util.JSONtryParse(resp.jres);
         const asm = resp.asm;
-        console.debug('reading ', code, json, jres, asm);
+        console.debug('reading ', resp);
         this.setState({ code, json, jres, asm, dirty: false });
     }
 
@@ -95,7 +95,6 @@ export class App extends React.Component<AppProps, AppState> implements IApp {
     }
 
     render() {
-        console.log("State:", this.state);
         const {code, json, jres, asm } = this.state;
         return (
             <div className="App">
