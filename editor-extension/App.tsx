@@ -1,15 +1,10 @@
 
 import * as React from 'react';
-import { Container, Segment, Button } from "semantic-ui-react";
+import { Container, Segment, Button, Header } from "semantic-ui-react";
 import { pxt, PXTClient } from '../lib/pxtextensions';
-import { Footer } from './components/footer';
-import { Body } from './components/body';
-import { Header } from './components/header';
 import * as util from "./lib/util";
 import * as images from "./lib/images";
 import { PXTComponentProps } from './PXTExtension';
-import { DataStream } from './components/datastream';
-import { Snippet } from './components/snippet';
 
 export interface IApp {
     setUserFiles(props: PXTComponentProps): void;
@@ -102,22 +97,8 @@ export class App extends React.Component<AppProps, AppState> implements IApp {
 
         return (
             <div className="App">
-                <Container>
-                    <Header {...this.state} />
-                    <Segment basic>
-                        <Body parent={this} {...this.state} />
-                    </Segment>
-                    <Segment basic>
-                        <DataStream {...this.props} />
-                    </Segment>
-                    <Segment basic>
-                        <Snippet {...this.state} />
-                    </Segment>
-                    {!hosted ? <Segment basic>
-                        <Button onClick={this.handleExport}>Export</Button>
-                    </Segment> : undefined}
-                    <Footer {...this.state} />
-                </Container>
+                <Header as="h1" className="center aligned">Audio precompiled. Return to MakeCode and download hex.</Header>
+                <Header as="h3" className="center aligned">Ensure you re-precompile after making any changes.</Header>
             </div>
         );
     }
