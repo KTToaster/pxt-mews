@@ -37,7 +37,6 @@ export class PXTExtension extends React.Component<{}, AppState> {
         });
         pxt.extensions.setup(this.client);
         pxt.extensions.init();
-        pxt.extensions.read();
     }
 
     private isSupported() {

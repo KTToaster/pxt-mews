@@ -47,6 +47,8 @@ export class App extends React.Component<AppProps, AppState> implements IApp {
         });
         this.props.client.on('shown', () => this.setState({ shown: true }));
         this.props.client.on('written', () => this.setState({ dirty: false }));
+
+        this.props.client.on('init', () => pxt.extensions.read());
     }
 
     private deserialize(resp: pxt.extensions.ReadResponse) {
@@ -93,8 +95,8 @@ export class App extends React.Component<AppProps, AppState> implements IApp {
     }
 
     render() {
-        const {code, json, jres, asm } = this.state;
         console.log("State:", this.state);
+        const {code, json, jres, asm } = this.state;
         return (
             <div className="App">
                 <Header as="h5" className="center aligned">&nbsp;</Header>

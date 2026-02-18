@@ -64,7 +64,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "509b4fb4baca632712e9";
+/******/ 	var hotCurrentHash = "9a8008cc824c35a30741";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -837,6 +837,7 @@ var App = (function (_super) {
         });
         _this.props.client.on('shown', function () { return _this.setState({ shown: true }); });
         _this.props.client.on('written', function () { return _this.setState({ dirty: false }); });
+        _this.props.client.on('init', function () { return pxtextensions_1.pxt.extensions.read(); });
         return _this;
     }
     App.prototype.deserialize = function (resp) {
@@ -876,8 +877,8 @@ var App = (function (_super) {
         }
     };
     App.prototype.render = function () {
-        var _a = this.state, code = _a.code, json = _a.json, jres = _a.jres, asm = _a.asm;
         console.log("State:", this.state);
+        var _a = this.state, code = _a.code, json = _a.json, jres = _a.jres, asm = _a.asm;
         return (React.createElement("div", { className: "App" },
             React.createElement(semantic_ui_react_1.Header, { as: "h5", className: "center aligned" }, "\u00A0"),
             React.createElement(semantic_ui_react_1.Header, { as: "h1", className: "center aligned" }, "Audio precompiled. Return to MakeCode and download hex."),
@@ -940,7 +941,6 @@ var PXTExtension = (function (_super) {
         });
         pxtextensions_1.pxt.extensions.setup(_this.client);
         pxtextensions_1.pxt.extensions.init();
-        pxtextensions_1.pxt.extensions.read();
         return _this;
     }
     PXTExtension.prototype.isSupported = function () {
