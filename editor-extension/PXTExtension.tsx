@@ -32,9 +32,12 @@ export class PXTExtension extends React.Component<{}, AppState> {
         }
 
         this.client = new PXTClient();
-        this.client.on('init', (target: string) => this.setState({ target, hosted: true }));
+        this.client.on('init', (target: string) => {
+            this.setState({ target, hosted: true });
+        });
         pxt.extensions.setup(this.client);
         pxt.extensions.init();
+        pxt.extensions.read();
     }
 
     private isSupported() {

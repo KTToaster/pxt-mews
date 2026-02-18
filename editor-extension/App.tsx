@@ -93,12 +93,27 @@ export class App extends React.Component<AppProps, AppState> implements IApp {
     }
 
     render() {
-        const { hosted } = this.props;
-
+        const {code, json, jres, asm } = this.state;
+        console.log("State:", this.state);
         return (
             <div className="App">
+                <Header as="h5" className="center aligned">&nbsp;</Header>
                 <Header as="h1" className="center aligned">Audio precompiled. Return to MakeCode and download hex.</Header>
                 <Header as="h3" className="center aligned">Ensure you re-precompile after making any changes.</Header>
+                <Header as="h5" className="center aligned">&nbsp;</Header>
+                <Segment>
+                    <Header as="h4">Code:</Header>
+                    <pre>{code}</pre>
+
+                    <Header as="h4">JSON:</Header>
+                    <pre>{JSON.stringify(json, null, 2)}</pre>
+
+                    <Header as="h4">JRES:</Header>
+                    <pre>{JSON.stringify(jres, null, 2)}</pre>
+
+                    <Header as="h4">ASM:</Header>
+                    <pre>{asm}</pre>
+                </Segment>
             </div>
         );
     }

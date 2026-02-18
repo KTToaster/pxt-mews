@@ -47,6 +47,7 @@
     },
     "extension": {
         "namespace": "tannoy",
+        "name":"pxt-mews",
         "label": "Precompile",
         "url": "http://localhost:3000",
         "localUrl": "http://localhost:3000"
