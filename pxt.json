@@ -40,11 +40,6 @@
         "microbit"
     ],
     "preferredEditor": "blocksprj",
-    "yotta": {
-        "config": {
-            "AUDIO_QUALITY": 1
-        }
-    },
     "extension": {
         "namespace": "tannoy",
         "label": "Precompile",
