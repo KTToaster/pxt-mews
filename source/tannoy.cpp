@@ -18,7 +18,7 @@ namespace tannoy{
   //%
   void announceStation(int station){
     #if MICROBIT_CODAL
-    name_data_mapping station_obj = audio::STATIONS[station];
+    name_data_mapping station_obj = audio::MAPPINGS[station];
     size_t out_size = 0;
     uint8_t* audio_data = decompress(station_obj.data, station_obj.size, &out_size); // U8 PCM Wav Data
 
@@ -87,7 +87,7 @@ namespace tannoy{
 
 #if MICROBIT_CODAL
 void announce_number(uint8_t number){
-  num_data_mapping num_obj = times::NUMBERS[number];
+  num_data_mapping num_obj = times::MAPPINGS[number];
 
   init_timer(num_obj.sample_rate); 
   init_pwm(); // Initialises PWM
@@ -101,7 +101,7 @@ void announce_number(uint8_t number){
 }
 
 void announce_number_special(uint8_t special){
-  name_data_mapping num_obj = times::NUMBERS_SPECIAL[special];
+  name_data_mapping num_obj = times::MAPPINGS_SPECIAL[special];
 
   init_timer(num_obj.sample_rate); 
   init_pwm(); // Initialises PWM
