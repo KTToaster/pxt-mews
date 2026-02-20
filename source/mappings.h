@@ -20,6 +20,29 @@ struct num_data_mapping{
 };
 
 namespace audio{
+  // Audio Quality Shims
+  // Must be literal or the compiler will load every audio file
+  //%
+  void setAudioQuality_min(){ 
+    quality=1;
+  }
+  //%
+  void setAudioQuality_low(){ 
+    quality=2;
+  }
+  //%
+  void setAudioQuality_med(){ 
+    quality=3;
+  }
+  //%
+  void setAudioQuality_high(){ 
+    quality=4;
+  }
+  //%
+  void setAudioQuality_extreme(){ 
+    quality=5;
+  }
+
   if(quality == 1){
     static const name_data_mapping STATIONS[] = {
       {"PON", minimum_audio::PON_data, minimum_audio::PON_size, minimum_audio::PON_sr},
