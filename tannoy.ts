@@ -5,14 +5,14 @@ namespace tannoy {
   //% shim=tannoy::announceStation
   export function announceStation(station: Station): void {
     console.log("Announcing Station: " + station);
-    qualityManager::setAudioQuality();
+    qualityManager.setAudioQuality();
   }
 
   //% block="Announce Time: $hours : $mins"
   //% shim=tannoy::announceTime
   export function announceTime(hours: number, mins: number): void {
     console.log("Announcing Time: " + hours + ":" + mins);
-    qualityManager::setAudioQuality();
+    qualityManager.setAudioQuality();
   }
 
   
