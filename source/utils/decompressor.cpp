@@ -1,6 +1,5 @@
 #include "pxt.h"
 #include "decompressor.h"
-#include "../mappings.h"
 
 // FUNCTION DEFINITIONS //
 uint8_t* decompress(const uint8_t* data, size_t data_len, size_t* out_len){

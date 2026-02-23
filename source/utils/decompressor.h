@@ -1,3 +1,4 @@
+// PRAGMA ONCE //
 #ifndef __DECOMPRESSOR_H
 #define __DECOMPRESSOR_H
 

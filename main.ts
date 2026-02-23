@@ -1,3 +1,3 @@
 input.onButtonPressed(Button.A, function () {
-  tannoy.announceStation(Station.OXF);
+  textToSpeech.say("Hello World!")  
 });

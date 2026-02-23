@@ -1,8 +1,7 @@
 #include "pxt.h"
 #include "MicroBit.h"
-#include "mappings.h"
 #include "utils/decompressor.h"
-#include "audio/audio.h"
+#include "audio.h"
 #include <string>
 using namespace pxt;
 
@@ -10,109 +9,30 @@ void init_timer(int sample_rate);
 void init_pwm();
 void play_wav(uint8_t* audio_data, size_t out_size);
 void play_sample(uint16_t sample);
-void announce_number(uint8_t number);
-void announce_number_special(uint8_t special);
 
-
-namespace tannoy{
+namespace tts{
   //%
-  void announceStation(int station){
+  void announceWord(ManagedString speak_text, ManagedString display_text){
     #if MICROBIT_CODAL
-    name_data_mapping station_obj = audio::MAPPINGS[station];
+    Audio_Data audio_obj = audio::data_map[speak_text.toCharArray()];
     size_t out_size = 0;
-    uint8_t* audio_data = decompress(station_obj.data, station_obj.size, &out_size); // U8 PCM Wav Data
+    uint8_t* audio_data = decompress(audio_obj.data, audio_obj.size, &out_size); // U8 PCM Wav Data
 
-    init_timer(station_obj.sample_rate);
+    init_timer(audio_obj.sample_rate);
     init_pwm(); // Initialises PWM
-    uBit.display.scroll(station_obj.name);
+    uBit.display.scroll(display_text);
 
+    // TODO: async.
     play_wav(audio_data, out_size);
     
     free(audio_data);
-    uBit.display.scroll(station_obj.name);
     #else
-    target_panic(PANIC_VARIANT_NOT_SUPPORTED);
-    #endif
-  }
-
-  //%
-  void announceTime(int hours, int mins){
-    #if MICROBIT_CODAL
-    char hours_str[3], mins_str[3];
-    itoa(hours, hours_str);
-    itoa(mins, mins_str);
-    char* _time_str = strcat(hours_str, ":");
-    char* time_str = strcat(_time_str, mins_str);
-    // Play Hours
-    uBit.display.scroll(ManagedString(time_str));
-    if(hours == 0){
-      announce_number(0);
-    }else if(hours < 10){
-      announce_number(0);
-      announce_number(hours);
-    }else if(hours < 20){
-      announce_number(hours);
-    }else{
-      announce_number(20);
-      if(hours-20 != 0){
-        announce_number(hours-20);
-      }
-    }
-    uBit.sleep(200);
-
-    // Play Mins
-    if(mins == 0){
-      announce_number_special(0);
-    }else if(mins < 10){
-      announce_number(0);
-      announce_number(hours);
-    }else if(mins < 20){
-      announce_number(hours);
-    }else{
-      for(int i=20; i<60; i+=10){
-        if(!mins-i<10){
-          continue;
-        }
-        announce_number(i);
-        if(mins-i != 0){
-          announce_number(mins-i);
-        }
-      }
-    }
-    #else
-    target_panic(PANIC_VARIANT_NOT_SUPPORTED);
+    uBit.display.scroll(display_text);
     #endif
   }
 }
 
 #if MICROBIT_CODAL
-void announce_number(uint8_t number){
-  num_data_mapping num_obj = times::MAPPINGS[number];
-
-  init_timer(num_obj.sample_rate); 
-  init_pwm(); // Initialises PWM
-
-  size_t out_size = 0;
-  uint8_t* audio_data = decompress(num_obj.data, num_obj.size, &out_size); // U8 PCM Wav Data
-
-  
-  play_wav(audio_data, out_size);
-  free(audio_data);
-}
-
-void announce_number_special(uint8_t special){
-  name_data_mapping num_obj = times::MAPPINGS_SPECIAL[special];
-
-  init_timer(num_obj.sample_rate); 
-  init_pwm(); // Initialises PWM
-
-  size_t out_size = 0;
-  uint8_t* audio_data = decompress(num_obj.data, num_obj.size, &out_size); // U8 PCM Wav Data
-
-  play_wav(audio_data, out_size);
-  free(audio_data);
-}
-
 void play_wav(uint8_t* audio_data, size_t out_size){
   for(unsigned int i=0; i<out_size/sizeof(uint8_t); i++){
     NRF_TIMER0->TASKS_CLEAR=(TIMER_TASKS_CLEAR_TASKS_CLEAR_Trigger<<TIMER_TASKS_CLEAR_TASKS_CLEAR_Pos);                         // Resets the timer
