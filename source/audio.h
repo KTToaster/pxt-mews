@@ -21,7 +21,7 @@ struct Audio_Data{
 namespace audio{
   static std::map<const char*, Audio_Data> data_map;
 
-  void add_audio(const char* name, uint8_t* data, int size, int sample_rate);
+  void add_audio(const char* name, uint8_t* data, int sample_rate);
 }
 
 #endif
