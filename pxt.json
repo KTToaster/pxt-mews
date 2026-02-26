@@ -1,6 +1,6 @@
 {
     "name": "mews",
-    "version": "0.0.1",
+    "version": "1.0.0",
     "description": "A PXT Extension to allow for Text to speech on the microbit - using word-stringing",
     "dependencies": {
         "core": "*",
@@ -16,7 +16,7 @@
         "source/utils/string_utils.ts",
         "source/utils/decompressor.h",
         "source/utils/decompressor.cpp",
-        "source/tannoy.cpp"
+        "source/textToSpeech.cpp"
     ],
     "testFiles": [
         "main.blocks",
