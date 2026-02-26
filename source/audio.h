@@ -19,8 +19,14 @@ struct Audio_Data{
 // CONSTANTS //
 // Data
 namespace audio{
-  static std::map<const char*, Audio_Data> data_map;
+  static std::map<const char*, Audio_Data> data_map;  //
 
+  /**
+   * Adds a word to the list of words that can be spoken by the text-to-speech system, accessed through a typescript shim.
+   * @param name The word being said by the text-to-speech system.
+   * @param data The IMA ADPCM encoded audio data of that maps to the word. 
+   * @param sample_rate The sample rate of the audio being played.
+   */
   void add_audio(const char* name, uint8_t* data, int sample_rate);
 }
 

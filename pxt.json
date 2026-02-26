@@ -10,7 +10,6 @@
         "README.md",
         "textToSpeech.ts",
         "mews.ts",
-        "source/mappings.ts",
         "source/audio.h",
         "source/audio.cpp",
         "source/utils/string_utils.ts",

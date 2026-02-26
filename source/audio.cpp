@@ -1,4 +1,5 @@
 #include "audio.h"
+#include "pxt.h"
 
 namespace audio{
   //%

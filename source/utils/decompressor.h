@@ -3,11 +3,13 @@
 #define __DECOMPRESSOR_H
 
 // CONSTANTS //
+// Index Table to Decode IMA ADPCM Data
 static const int index_table[16] = {
   -1,-1,-1,-1,2,4,6,8,
   -1,-1,-1,-1,2,4,6,8
 };
 
+// Step Table to Decode IMA ADPCM Data
 static const int step_table[89] = {
   7,8,9,10,11,12,13,14,16,17,
   19,21,23,25,28,31,34,37,41,45,
@@ -21,5 +23,12 @@ static const int step_table[89] = {
 };
 
 // FUNCTION DECLARATIONS //
+/**
+ * Decompresses IMA ADPCM audio data to raw Wav data.
+ * @param data The compressed data.
+ * @param data_len The length of the compressed data.
+ * @param out_len Pointer for an object to return how long the resultant data is.
+ * @returns The Decompressed data
+ */
 uint8_t* decompress(const uint8_t* data, size_t data_len, size_t* out_len);
 #endif

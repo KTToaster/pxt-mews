@@ -1,3 +1,4 @@
+// IMPORTS //
 #include "pxt.h"
 #include "MicroBit.h"
 #include "utils/decompressor.h"
@@ -5,12 +6,37 @@
 #include <string>
 using namespace pxt;
 
+// FUNCTION DECLARATIONS //
+/**
+ * Initialises an NRF Timer to activate at a given rate.
+ * @param sample_rate The rate at which to activate the timer, matching the sample rate of the audio being played.
+ */
 void init_timer(int sample_rate);
+/**
+ * Initialises Pulse-Width-Modulation on the MicroBit.
+ */
 void init_pwm();
+/**
+ * Plays wav data through the Jiangsu Huaneng MLT-8530 Speaker.
+ * @param audio_data The audio data to play through the speaker.
+ * @param out_size The size of the data being played.
+ */
 void play_wav(uint8_t* audio_data, size_t out_size);
+/**
+ * Plays an individual audio sample through the Jiangsu Huaneng MLT-8530 Speaker.
+ * @param sample The sample to play through the speaker. 
+ */
 void play_sample(uint16_t sample);
 
 namespace tts{
+  // FUNCTION DECLARATIONS //
+  /**
+   * Plays a word through the Text-To-Speech System.
+   * @param speak_text The name of the word being spoken in the data_map.
+   * @param display_text How the word should be displayed on the screen
+   */
+  void announceWord(ManagedString speak_text, ManagedString display_text);
+
   //%
   void announceWord(ManagedString speak_text, ManagedString display_text){
     #if MICROBIT_CODAL
