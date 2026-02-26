@@ -14,5 +14,7 @@ namespace textToSpeech {
   }
 
   //% shim=tts::announceWord
-  function announceWord(speak_text:string, display_text:string): void{}
+  function announceWord(speak_text:string, display_text:string): void{
+    console.log(display_text);
+  }
 }

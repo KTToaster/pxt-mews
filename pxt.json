@@ -32,8 +32,8 @@
     ],
     "preferredEditor": "blocksprj",
     "extension": {
-        "namespace": "tannoy",
-        "label": "Precompile",
+        "namespace": "textToSpeech",
+        "label": "Prepare",
         "url": "http://localhost:5173",
         "localUrl": "http://localhost:5173"
     }
