@@ -6,7 +6,7 @@ namespace audio{
 
   //%
   void add_audio(String name, Buffer data, int data_len, int sample_rate){
-    uBit.display.scroll(ManagedString(name->getUTF8Data())); // temporary debug
+    // uBit.display.scroll(ManagedString(name->getUTF8Data())); // temporary debug
     Audio_Data audioData;
     audioData.data = data->data;
     audioData.size = data_len;
