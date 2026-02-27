@@ -7,6 +7,7 @@
 // IMPORTS //
 #include "pxt.h"
 #include <map>
+#include <string>
 
 // STRUCTS //
 // Struct to hold all the important audio data.
@@ -19,7 +20,7 @@ struct Audio_Data{
 // CONSTANTS //
 // Data
 namespace audio{
-  static std::map<const char*, Audio_Data> data_map;  //
+  static std::map<std::string, Audio_Data> data_map;  //
 
   /**
    * Adds a word to the list of words that can be spoken by the text-to-speech system, accessed through a typescript shim.

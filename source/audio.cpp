@@ -8,7 +8,6 @@ namespace audio{
     audioData.data = data;
     audioData.size = data_len;
     audioData.sample_rate = sample_rate;
-
-    data_map[name] = audioData;
+    data_map[std::string(name)] = audioData;
   }
 }
