@@ -72,7 +72,7 @@ void play_wav(uint8_t* audio_data, size_t out_size){
     NRF_TIMER0->EVENTS_COMPARE[0]=(TIMER_EVENTS_COMPARE_EVENTS_COMPARE_NotGenerated<<TIMER_EVENTS_COMPARE_EVENTS_COMPARE_Pos);  // Resets the comparison check
 
     // Play Sample (Not Functioning Correctly)
-    play_sample((uint16_t)audio_data[i]*2);
+    play_sample((uint16_t)audio_data[i]);
     
     // Wait for timer to finish
     while(NRF_TIMER0->EVENTS_COMPARE[0] == (TIMER_EVENTS_COMPARE_EVENTS_COMPARE_NotGenerated << TIMER_EVENTS_COMPARE_EVENTS_COMPARE_Pos));
