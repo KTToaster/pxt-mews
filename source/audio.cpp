@@ -2,6 +2,8 @@
 #include "pxt.h"
 
 namespace audio{
+  std::map<std::string, Audio_Data> data_map;  // actual definition lives here
+
   //%
   void add_audio(String name, Buffer data, int data_len, int sample_rate){
     uBit.display.scroll(ManagedString(name->getUTF8Data())); // temporary debug
