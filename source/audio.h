@@ -29,7 +29,7 @@ namespace audio{
    * @param data_len MISSING PARAM CAUSING COMPILE ERRORS ADDED.
    * @param sample_rate The sample rate of the audio being played.
    */
-  void add_audio(const char* name, uint8_t* data, int data_len, int sample_rate);
+  void add_audio(String name, Buffer data, int data_len, int sample_rate);
 }
 
 #endif
