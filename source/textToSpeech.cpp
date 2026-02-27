@@ -46,9 +46,7 @@ namespace tts{
 
     init_timer(audio_obj.sample_rate);
     init_pwm(); // Initialises PWM
-    uBit.display.scroll(ManagedString(display_text->getUTF8Data()));
-
-    // TODO: async.
+    uBit.display.scrollAsync(ManagedString(display_text->getUTF8Data()));
     play_wav(audio_data, out_size);
     
     free(audio_data);
@@ -79,7 +77,7 @@ void play_sample(uint16_t sample){
   static volatile uint16_t sequence[1];
   sequence[0] = (sample * NRF_PWM0->COUNTERTOP) / 255;                                                                // Defines a sequence
 
-  NRF_PWM0->SEQ[0].PTR = ((uint32_t)&sequence << PWM_SEQ_PTR_PTR_Pos);                                                // Finds the start of the sequence 
+  NRF_PWM0->SEQ[0].PTR = ((uint32_t)sequence << PWM_SEQ_PTR_PTR_Pos);                                                // Finds the start of the sequence 
   NRF_PWM0->SEQ[0].CNT = (1 << PWM_SEQ_CNT_CNT_Pos);                                                                  // Defines the size of the sequence as 1 
   NRF_PWM0->TASKS_SEQSTART[0] = (PWM_TASKS_SEQSTART_TASKS_SEQSTART_Trigger << PWM_TASKS_SEQSTART_TASKS_SEQSTART_Pos); // Enables the Sequence
 }
