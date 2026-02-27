@@ -76,7 +76,8 @@ void play_wav(uint8_t* audio_data, size_t out_size){
 
 
 void play_sample(uint16_t sample){
-  volatile uint16_t sequence[1] = {(sample * NRF_PWM0->COUNTERTOP) / 255};                                            // Defines a sequence
+  static volatile uint16_t sequence[1];
+  sequence[0] = (sample * NRF_PWM0->COUNTERTOP) / 255;                                                                // Defines a sequence
 
   NRF_PWM0->SEQ[0].PTR = ((uint32_t)&sequence << PWM_SEQ_PTR_PTR_Pos);                                                // Finds the start of the sequence 
   NRF_PWM0->SEQ[0].CNT = (1 << PWM_SEQ_CNT_CNT_Pos);                                                                  // Defines the size of the sequence as 1 
