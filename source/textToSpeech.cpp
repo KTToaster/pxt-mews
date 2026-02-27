@@ -35,25 +35,25 @@ namespace tts{
    * @param speak_text The name of the word being spoken in the data_map.
    * @param display_text How the word should be displayed on the screen
    */
-  void announceWord(ManagedString speak_text, ManagedString display_text);
+  void announceWord(String speak_text, String display_text);
 
   //%
-  void announceWord(ManagedString speak_text, ManagedString display_text){
+  void announceWord(String speak_text, String display_text){
     #if MICROBIT_CODAL
-    Audio_Data audio_obj = audio::data_map[speak_text.toCharArray()];
+    Audio_Data audio_obj = audio::data_map[speak_text->getUTF8Data()];
     size_t out_size = 0;
     uint8_t* audio_data = decompress(audio_obj.data, audio_obj.size, &out_size); // U8 PCM Wav Data
 
     init_timer(audio_obj.sample_rate);
     init_pwm(); // Initialises PWM
-    uBit.display.scroll(display_text);
+    uBit.display.scroll(ManagedString(display_text->getUTF8Data()));
 
     // TODO: async.
     play_wav(audio_data, out_size);
     
     free(audio_data);
     #else
-    uBit.display.scroll(display_text);
+    uBit.display.scroll(ManagedString(display_text->getUTF8Data()));
     #endif
   }
 }
