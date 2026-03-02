@@ -35,25 +35,32 @@ namespace tts{
    * @param speak_text The name of the word being spoken in the data_map.
    * @param display_text How the word should be displayed on the screen
    */
-  void announceWord(ManagedString speak_text, ManagedString display_text);
+  void announceWord(String speak_text, String display_text);
 
   //%
-  void announceWord(ManagedString speak_text, ManagedString display_text){
+  void announceWord(String speak_text, String display_text){
     #if MICROBIT_CODAL
-    Audio_Data audio_obj = audio::data_map[speak_text.toCharArray()];
+    Audio_Data audio_obj = audio::data_map[speak_text->getUTF8Data()];
+    if(audio_obj.data == nullptr){
+      uBit.display.scroll("NO KEY");
+      return;
+    }
     size_t out_size = 0;
     uint8_t* audio_data = decompress(audio_obj.data, audio_obj.size, &out_size); // U8 PCM Wav Data
 
+    if(out_size == 0 || audio_data == nullptr){
+      uBit.display.scroll("ERR");
+      return;
+    }
+
     init_timer(audio_obj.sample_rate);
     init_pwm(); // Initialises PWM
-    uBit.display.scroll(display_text);
-
-    // TODO: async.
+    uBit.display.scrollAsync(ManagedString(display_text->getUTF8Data()));
     play_wav(audio_data, out_size);
     
     free(audio_data);
     #else
-    uBit.display.scroll(display_text);
+    uBit.display.scroll(ManagedString(display_text->getUTF8Data()));
     #endif
   }
 }
@@ -65,7 +72,7 @@ void play_wav(uint8_t* audio_data, size_t out_size){
     NRF_TIMER0->EVENTS_COMPARE[0]=(TIMER_EVENTS_COMPARE_EVENTS_COMPARE_NotGenerated<<TIMER_EVENTS_COMPARE_EVENTS_COMPARE_Pos);  // Resets the comparison check
 
     // Play Sample (Not Functioning Correctly)
-    play_sample((uint16_t)audio_data[i]*2);
+    play_sample((uint16_t)audio_data[i]);
     
     // Wait for timer to finish
     while(NRF_TIMER0->EVENTS_COMPARE[0] == (TIMER_EVENTS_COMPARE_EVENTS_COMPARE_NotGenerated << TIMER_EVENTS_COMPARE_EVENTS_COMPARE_Pos));
@@ -76,9 +83,10 @@ void play_wav(uint8_t* audio_data, size_t out_size){
 
 
 void play_sample(uint16_t sample){
-  volatile uint16_t sequence[1] = {(sample * NRF_PWM0->COUNTERTOP) / 255};                                            // Defines a sequence
+  static volatile uint16_t sequence[1];
+  sequence[0] = (sample * NRF_PWM0->COUNTERTOP) / 255;                                                                // Defines a sequence
 
-  NRF_PWM0->SEQ[0].PTR = ((uint32_t)&sequence << PWM_SEQ_PTR_PTR_Pos);                                                // Finds the start of the sequence 
+  NRF_PWM0->SEQ[0].PTR = ((uint32_t)sequence << PWM_SEQ_PTR_PTR_Pos);                                                // Finds the start of the sequence 
   NRF_PWM0->SEQ[0].CNT = (1 << PWM_SEQ_CNT_CNT_Pos);                                                                  // Defines the size of the sequence as 1 
   NRF_PWM0->TASKS_SEQSTART[0] = (PWM_TASKS_SEQSTART_TASKS_SEQSTART_Trigger << PWM_TASKS_SEQSTART_TASKS_SEQSTART_Pos); // Enables the Sequence
 }

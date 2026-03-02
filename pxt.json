@@ -15,7 +15,9 @@
         "source/utils/string_utils.ts",
         "source/utils/decompressor.h",
         "source/utils/decompressor.cpp",
-        "source/textToSpeech.cpp"
+        "source/textToSpeech.cpp",
+        "shims.d.ts",
+        "enums.d.ts"
     ],
     "testFiles": [
         "main.blocks",
