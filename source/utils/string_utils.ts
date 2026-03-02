@@ -12,6 +12,6 @@ namespace utils{
           cleaned += c;
         }
       }
-      return cleaned;
+      return cleaned.toLowerCase();
   }
 }
