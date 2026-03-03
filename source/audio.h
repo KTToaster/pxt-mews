@@ -26,7 +26,7 @@ namespace audio{
    * Adds a word to the list of words that can be spoken by the text-to-speech system, accessed through a typescript shim.
    * @param name The word being said by the text-to-speech system.
    * @param data The IMA ADPCM encoded audio data of that maps to the word. 
-   * @param data_len MISSING PARAM CAUSING COMPILE ERRORS ADDED.
+   * @param data_len The length of the audio data
    * @param sample_rate The sample rate of the audio being played.
    */
   void add_audio(String name, Buffer data, int data_len, int sample_rate);

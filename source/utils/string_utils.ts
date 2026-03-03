@@ -12,6 +12,9 @@ namespace utils{
           cleaned += c;
         }
       }
+      if(!isNaN(parseInt(cleaned[0]))){
+        cleaned = "_" + cleaned;
+      }
       return cleaned.toLowerCase();
   }
 }
