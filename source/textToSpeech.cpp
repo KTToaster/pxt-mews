@@ -2,12 +2,8 @@
 #include "pxt.h"
 #include "MicroBit.h"
 #include "utils/decompressor.h"
-#include "audio.h"
 #include <string>
 using namespace pxt;
-
-// CONSTANTS //
-bool init_flag = false;
 
 // FUNCTION DECLARATIONS //
 /**
@@ -73,7 +69,7 @@ void init_timer(int sample_rate){
 
 void init_pwm(){
   NRF_PWM0->PSEL.OUT[0] = (MICROBIT_PIN_SPEAKER << PWM_PSEL_OUT_PIN_Pos) |                // Maps the first pin to the speaker
-  (PWM_PSEL_OUT_CONNECT_Connected << PWM_PSEL_OUT_CONNECT_Pos);   // Connects the pin
+  (PWM_PSEL_OUT_CONNECT_Connected << PWM_PSEL_OUT_CONNECT_Pos);                           // Connects the pin
   
   NRF_PWM0->ENABLE = (PWM_ENABLE_ENABLE_Enabled << PWM_ENABLE_ENABLE_Pos);                // Enables PWM
   
@@ -87,43 +83,47 @@ void init_pwm(){
   NRF_PWM0->SEQ[0].ENDDELAY = (0 << PWM_SEQ_ENDDELAY_CNT_Pos);                            // Disables End Delay
   NRF_PWM0->LOOP = (PWM_LOOP_CNT_Disabled << PWM_LOOP_CNT_Pos);                           // Disables Looping
 }
+
 #endif
 
 // NAMESPACES //
-namespace tts{
+namespace tts{  
   // FUNCTION DECLARATIONS //
   /**
    * Plays a word through the Text-To-Speech System.
    * @param speak_text The name of the word being spoken in the data_map.
    * @param display_text How the word should be displayed on the screen
    */
-  void announceWord(String speak_text, String display_text);
-
+  void announceWord(String display_text);
+  
   // FUNCTION DEFINITIONS //
   //%
-  void announceWord(String speak_text, String display_text){
+  void announceWord(String display_text, Buffer audio_data, int sample_rate, int size){
     #if MICROBIT_CODAL == 1
     
-    Audio_Data audio_obj = audio::data_map[speak_text->getUTF8Data()];
-    if(audio_obj.data == nullptr){
-      uBit.display.scroll("KEYERROR");
+    if(size == -1){
+      uBit.display.scroll(ManagedString(display_text->getUTF8Data()), 100);
       return;
     }
+
     size_t out_size = 0;
-    uint8_t* audio_data = decompress(audio_obj.data, audio_obj.size, &out_size); // U8 PCM Wav Data
-
-    if(out_size == 0 || audio_data == nullptr){
-      uBit.display.scroll("ERR");
+    uint8_t* decompressed = decompress(audio_data->data, size, &out_size); // U8 PCM Wav Data
+    
+    if(out_size == 0 || decompressed == nullptr){
+      uBit.display.scroll("ERR", 100);
       return;
     }
-
-    init_timer(audio_obj.sample_rate);
-    play_wav(audio_data, out_size);
-    uBit.display.scroll(ManagedString(display_text->getUTF8Data()));
     
-    free(audio_data);
+    init_timer(sample_rate);
+    volatile int display_status = -1066;
+    do{
+      display_status = uBit.display.scrollAsync(ManagedString(display_text->getUTF8Data()), 50);
+    }while (display_status != 0);
+    play_wav(decompressed, out_size);
+
+    free(decompressed);
     #else
-    uBit.display.scroll(ManagedString(display_text->getUTF8Data()));
+    uBit.display.scroll(ManagedString(display_text->getUTF8Data()), 50);
     #endif
   }
 }

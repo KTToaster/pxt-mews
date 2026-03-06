@@ -3,15 +3,12 @@
     "version": "1.0.0",
     "description": "A PXT Extension to allow for Text to speech on the microbit - using word-stringing",
     "dependencies": {
-        "core": "*",
-        "microphone": "*"
+        "core": "*"
     },
     "files": [
         "README.md",
         "textToSpeech.ts",
         "mews.ts",
-        "source/audio.h",
-        "source/audio.cpp",
         "source/utils/string_utils.ts",
         "source/utils/decompressor.h",
         "source/utils/decompressor.cpp",

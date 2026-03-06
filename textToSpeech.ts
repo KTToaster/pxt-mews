@@ -7,14 +7,24 @@ namespace textToSpeech {
 
   //% block="Say: $text"
   export function say(text:string): void {
+    if(audio.sample_rate == -1){
+      announceWord("AUDIO NOT INITIALISED", Buffer.create(0), 0, -1);
+      return;
+    }
+    
     words = text.split(" ");
     words.forEach(word => {
-      announceWord(utils.clean(word), word);
+      try{
+        announceWord(word, Buffer.fromBase64(audio.audio_data[word]["data"]), audio.sample_rate, audio.audio_data[word]["size"]);
+      }catch(TypeError){
+        announceWord("KEYERR", Buffer.create(0), 0, -1);
+      }
     });
   }
 
   //% shim=tts::announceWord
-  function announceWord(speak_text:string, display_text:string): void{
+  function announceWord(display_text: string, buffer:Buffer, sample_rate:number, size:number): void{
     console.log(display_text);
   }
+
 }
