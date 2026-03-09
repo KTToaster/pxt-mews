@@ -38,7 +38,6 @@ namespace textToSpeech {
   }
 }
 
-// BASEPLATE OVERWRITTEN BY EXTWRITECODE. DO NOT TOUCH. //
 namespace audio {
   interface WordData {
     data: string;
